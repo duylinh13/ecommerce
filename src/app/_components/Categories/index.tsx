@@ -6,7 +6,12 @@ import CategoryCard from './CategoryCard';
 
 import classes from './index.module.scss';
 
-const Categories = ({ categories }: { categories: Category[] | null | undefined }) => {
+interface CategoriesProps {
+  categories: Category[];
+}
+
+const Categories: React.FC<CategoriesProps> = ({ categories }) => {
+  console.log(`categories show: ${categories}`);
   return (
     <section className={classes.container}>
       <div className={classes.titleWrapper}>
@@ -14,15 +19,12 @@ const Categories = ({ categories }: { categories: Category[] | null | undefined 
         <Link href="/products">Show All</Link>
       </div>
 
-      {categories && categories.length > 0 && (
-        <div className={classes.list}>
-          {categories.map((category) => (
-            <CategoryCard key={category.id} category={category} />
-          ))}
-        </div>
-      )}
+      <div className={classes.list}>
+        {categories &&
+          categories.map(category => <CategoryCard key={category.id} category={category} />)}
+      </div>
     </section>
   );
-};
+}
 
 export default Categories;

@@ -22,15 +22,12 @@ export const dynamic = 'force-dynamic'
 
 import Categories from '../../_components/Categories'
 
-
 import classes from './index.module.scss'
 export default async function Page({ params: { slug = 'home' } }) {
   const { isEnabled: isDraftMode } = draftMode()
 
   let page: Page | null = null
-  let categories: Category[] | null = null
-
-  try {
+  let categories: Category[] | null
     page = await fetchDoc<Page>({
       collection: 'pages',
       slug,
@@ -38,6 +35,7 @@ export default async function Page({ params: { slug = 'home' } }) {
     })
 
     categories = await fetchDocs<Category>('categories')
+    console.log(`page categories: ${categories}`);
   } catch (error) {
     // when deploying this template on Payload Cloud, this page needs to build before the APIs are live
     // so swallow the error here and simply render the page with fallback data where necessary
@@ -57,7 +55,7 @@ export default async function Page({ params: { slug = 'home' } }) {
   }
 
   const { hero, layout } = page
-
+ 
   return (
     <React.Fragment>
       {slug === 'home' ? (
