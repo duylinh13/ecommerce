@@ -23,11 +23,15 @@ export const dynamic = 'force-dynamic'
 import Categories from '../../_components/Categories'
 
 import classes from './index.module.scss'
+import Promotion from '../../_components/Promotion'
+
 export default async function Page({ params: { slug = 'home' } }) {
   const { isEnabled: isDraftMode } = draftMode()
 
   let page: Page | null = null
-  let categories: Category[] | null
+  let categories: Category[] | null = null
+
+  try {
     page = await fetchDoc<Page>({
       collection: 'pages',
       slug,
@@ -35,12 +39,12 @@ export default async function Page({ params: { slug = 'home' } }) {
     })
 
     categories = await fetchDocs<Category>('categories')
-    console.log(`page categories: ${categories}`);
+    console.log(`Fetched categories: ${categories}`)
   } catch (error) {
+    console.error(`Error fetching data: ${error}`)
     // when deploying this template on Payload Cloud, this page needs to build before the APIs are live
     // so swallow the error here and simply render the page with fallback data where necessary
-    // in production you may want to redirect to a 404  page or at least log the error somewhere
-    // console.error(error)
+    // in production you may want to redirect to a 404 page or at least log the error somewhere
   }
 
   // if no `home` page exists, render a static one using dummy content
@@ -55,7 +59,7 @@ export default async function Page({ params: { slug = 'home' } }) {
   }
 
   const { hero, layout } = page
- 
+
   return (
     <React.Fragment>
       {slug === 'home' ? (
@@ -64,6 +68,7 @@ export default async function Page({ params: { slug = 'home' } }) {
 
           <Gutter className={classes.home}>
             <Categories categories={categories} />
+            <Promotion />
           </Gutter>
         </section>
       ) : (
@@ -82,7 +87,7 @@ export default async function Page({ params: { slug = 'home' } }) {
 export async function generateStaticParams() {
   try {
     const pages = await fetchDocs<Page>('pages')
-    return pages?.map(({ slug }) => slug)
+    return pages?.map(({ slug }) => ({ slug }))
   } catch (error) {
     return []
   }
@@ -103,7 +108,7 @@ export async function generateMetadata({ params: { slug = 'home' } }): Promise<M
     // don't throw an error if the fetch fails
     // this is so that we can render a static home page for the demo
     // when deploying this template on Payload Cloud, this page needs to build before the APIs are live
-    // in production you may want to redirect to a 404  page or at least log the error somewhere
+    // in production you may want to redirect to a 404 page or at least log the error somewhere
   }
 
   if (!page && slug === 'home') {
