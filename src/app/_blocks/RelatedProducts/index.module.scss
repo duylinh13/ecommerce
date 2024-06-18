@@ -1,58 +1,59 @@
-@import '../../_css/common';
+@use '../../_css/common.scss' as *;
 
-.introContent {
-  position: relative;
-  margin-bottom: calc(var(--base) * 2);
-
-  @include mid-break {
-    margin-bottom: var(--base);
-  }
-}
-
-.grid {
+.productHero {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
   width: 100%;
-  gap: var(--base) 40px;
 
-  @include mid-break {
-    grid-template-columns: repeat(6, 1fr);
-    gap: calc(var(--base) / 2) var(--base);
+  @include small-break {
+    grid-template-columns: 1fr;
   }
 }
 
-.column {
-  grid-column-end: span 12;
-
-  @include mid-break {
-    grid-column-end: span 6;
-  }
+.mediaWrapper {
+  position: relative;
+  min-height: 400px;
+  background-color: var(--color-dark-50);
 
   @include small-break {
-    grid-column-end: span 6;
+    min-height: 250px;
   }
 }
 
-.cols-half {
-  grid-column-end: span 6;
-
-  @include mid-break {
-    grid-column-end: span 6;
-  }
-
-  @include small-break {
-    grid-column-end: span 6;
-  }
+.image {
+  padding: 24px;
+  object-fit: contain;
+  aspect-ratio: 1/1;
+  max-width: 100%;
 }
 
-.cols-thirds {
-  grid-column-end: span 3;
+.details {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
 
-  @include mid-break {
-    grid-column-end: span 6;
-  }
+.categoryWrapper {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 16px;
+  margin-top: 8px;
+}
 
-  @include small-break {
-    grid-column-end: span 6;
-  }
+.category {
+  font-size: 16px;
+}
+
+.stock {
+  color: var(--color-green-500);
+}
+
+.separator {
+  color: var(--color-gray-500);
+  padding: 0 10px;
+}
+
+.description {
+  padding: 30px 0;
 }
