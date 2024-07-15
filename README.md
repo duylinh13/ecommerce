@@ -1,3 +1,13 @@
+![img1](public/ui/image1.png)
+![img2](public/ui/image2.png)
+![img3](public/ui/image3.png)
+![img4](public/ui/image4.png)
+![img5](public/ui/image5.png)
+![img6](public/ui/image6.png)
+![img7](public/ui/image7.png)
+![img8](public/ui/image8.png)
+![img9](public/ui/image9.png)
+
 # Payload E-Commerce Template
 
 This is the official [Payload E-Commerce Template](https://github.com/payloadcms/payload/blob/main/templates/ecommerce). Use it to power e-commerce businesses and online stores of all sizes. This repo includes a fully-working backend, enterprise-grade admin panel, and a beautifully designed, production-ready website.
